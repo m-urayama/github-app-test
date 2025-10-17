@@ -1,0 +1,32 @@
+name: Manual Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: '挨拶する名前'
+        required: true
+        default: 'World'
+      greeting:
+        description: '挨拶メッセージ'
+        required: false
+        default: 'Hello'
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: 挨拶する
+        run: |
+          echo "${{ inputs.greeting }}, ${{ inputs.name }}!"
+          echo "ワークフローが手動で実行されました"
+          date
+      
+      - name: 環境情報を表示
+        run: |
+          echo "Runner OS: ${{ runner.os }}"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
